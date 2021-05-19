@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -6,6 +6,14 @@ import {
   Marker,
   useMapEvent,
 } from "react-leaflet";
+import { Icon } from "leaflet";
+import data from "../../mockDB/data.json";
+import markerImg from "./location-marker.png";
+
+export const icon = new Icon({
+  iconUrl: markerImg,
+  iconSize: [25, 25],
+});
 
 function SetViewOnClick() {
   const map = useMapEvent("click", (e) => {
@@ -18,20 +26,30 @@ function SetViewOnClick() {
 }
 
 const Map = () => {
-  const centerPosition = [63.5657, 53.6713];
+  const { currentLocation } = data;
+  const [activePoint, setActivePoin] = useState([]);
+  const { parkPoints } = data;
+  console.log(data);
 
   return (
     <div>
-      <MapContainer center={centerPosition} zoom={13} scrollWheelZoom={true}>
+      <MapContainer center={currentLocation} zoom={13} scrollWheelZoom={true}>
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://maps.geoapify.com/v1/tile/dark-matter-brown/{z}/{x}/{y}.png?apiKey=e24b101acbd2442093544af11f463dc3"
         />
-        <Marker position={centerPosition}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
+        {parkPoints.map((point) => (
+          <Marker position={[point.latitude, point.longitude]} icon={icon}>
+            <Popup>
+              <p>
+                <b>Адрес:</b> {point.address}
+              </p>
+              <p>
+                <b>Модель самоката:</b> {point.citybug}
+              </p>
+            </Popup>
+          </Marker>
+        ))}
         <SetViewOnClick />
       </MapContainer>
     </div>
