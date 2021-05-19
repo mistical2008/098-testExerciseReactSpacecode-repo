@@ -42,9 +42,7 @@ const Map = () => {
           <Marker position={[point.latitude, point.longitude]} icon={icon}>
             <Popup>
               <p>
-                <b>Адрес:</b> {point.address}
-              </p>
-              <p>
+                <b>Адрес:</b> {point.address} <br />
                 <b>Модель самоката:</b> {point.citybug}
               </p>
             </Popup>
