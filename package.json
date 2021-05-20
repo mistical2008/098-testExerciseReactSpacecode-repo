@@ -1,4 +1,5 @@
 {
+  "homepage": "https://mistical2008.github.io/test-exercise-spacecode",
   "name": "leaflet-map",
   "version": "0.1.0",
   "private": true,
@@ -20,7 +21,9 @@
     "start": "npx react-scripts start",
     "build": "npx react-scripts build",
     "test": "npx react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "./node_modules/.bin/gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -41,6 +44,7 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.14.2"
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.14.2",
+    "gh-pages": "^3.1.0"
   }
 }
